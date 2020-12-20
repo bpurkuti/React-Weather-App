@@ -5,8 +5,20 @@
 }
 
 body {
-	font-family: "montseratt", sans-serif;
+  font-family: "montseratt", sans-serif;
+  background-color: #786bc5;
+  background-image: url("./assets/bg3.jpg") ;
+
+
 }
+
+/* Applies depending on device type or when device screen is at least said width */
+@media only screen and (min-width: 1025px) {
+  body{
+      margin-left: 600px;
+      margin-right: 600px;
+  }
+} 
 
 .App {
 	background-size: cover;

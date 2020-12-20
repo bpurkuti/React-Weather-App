@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
+import { Helmet } from "react-helmet";
 
+
+require('dotenv').config();
 const api = {
-	key: "2f038f971e8c36ad567cb03c3234dbb6",
-	base: "https://api.openweathermap.org/data/2.5/",
+	key: process.env.REACT_APP_API_KEY,
+	base: process.env.REACT_APP_BASE,
 };
 
 function App() {
@@ -56,14 +59,13 @@ function App() {
 	};
 
 	const buildTime = (today) => {
-    let hours = today.getHours();
-    let minutes = today.getMinutes();
-    let time = 0;
-    
-    if (minutes<10)
-    {
-      minutes = '0'+minutes;
-    }
+		let hours = today.getHours();
+		let minutes = today.getMinutes();
+		let time = 0;
+
+		if (minutes < 10) {
+			minutes = "0" + minutes;
+		}
 
 		if (hours > 12) {
 			time = hours - 12 + ":" + minutes + " PM";
@@ -83,6 +85,9 @@ function App() {
 					: "App warm"
 			}
 		>
+			<Helmet>
+				<title>Weather App</title>
+			</Helmet>
 			<main>
 				<div className="search-box">
 					<input
@@ -104,11 +109,10 @@ function App() {
 						</div>
 
 						<div className="weather-box">
-
-              {/* Celcius */}
+							{/* Celcius */}
 							{/* <div className="temp">{Math.round(weather.main.temp)}°C</div> */}
 
-              {/* Farenheiit */}
+							{/* Farenheiit */}
 							<div className="temp">
 								{Math.round((weather.main.temp * 9) / 5 + 32)}°F
 							</div>
