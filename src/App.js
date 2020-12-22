@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Helmet } from "react-helmet";
 
-
-require('dotenv').config();
+require("dotenv").config();
 const api = {
 	key: process.env.REACT_APP_API_KEY,
 	base: process.env.REACT_APP_BASE,
@@ -12,6 +11,19 @@ const api = {
 function App() {
 	const [query, setQuery] = useState("");
 	const [weather, setWeather] = useState({});
+
+	//Allows to call the following function on the first page load. need to pass empty array [] as second argument to prevent
+	//infinite loops
+	useEffect(() => {
+		const t = "San Francisco";
+		fetch(`${api.base}weather?q=${t}&units=metric&APPID=${api.key}`)
+			.then((res) => res.json())
+			.then((result) => {
+				setWeather(result);
+				setQuery("");
+				console.log(result);
+			});
+	}, []);
 
 	const search = (evt) => {
 		if (evt.key === "Enter") {
@@ -61,6 +73,7 @@ function App() {
 	const buildTime = (today) => {
 		let hours = today.getHours();
 		let minutes = today.getMinutes();
+		let seconds = today.getSeconds();
 		let time = 0;
 
 		if (minutes < 10) {
@@ -68,9 +81,9 @@ function App() {
 		}
 
 		if (hours > 12) {
-			time = hours - 12 + ":" + minutes + " PM";
+			time = hours - 12 + ":" + minutes + ":" + seconds + " PM";
 		} else {
-			time = hours + ":" + minutes + " AM";
+			time = hours + ":" + minutes + ":" + seconds + " AM";
 		}
 
 		return time;
@@ -93,7 +106,7 @@ function App() {
 					<input
 						type="text"
 						className="search-bar"
-						placeholder="Search.."
+						placeholder="Search your city..."
 						onChange={(e) => setQuery(e.target.value)}
 						value={query}
 						onKeyPress={search}
