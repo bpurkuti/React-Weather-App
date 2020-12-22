@@ -1,6 +1,9 @@
 ## A responsive weather app built using React js. API used from https://openweathermap.org/.  
-### Simply type the name of the city in the search bar to see the weather report in that location
+## Simply type the name of the city in the search bar to see the weather report in that location
 
+
+  
+  
 
 
 # Getting Started with Create React App
